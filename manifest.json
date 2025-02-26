@@ -1,0 +1,55 @@
+{
+  "manifest_version": 2,
+  "name": "BojHub_Firefox",
+  "description": "Automatically integrate your BOJ submissions to GitHub on Firefox",
+  "homepage_url": "https://github.com/wcharibo/BojHubOnZen",
+  "version": "0.0.1",
+  "author": "Wcharibo",
+  "browser_action": {
+    "default_icon": "assets/thumbnail.png",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "assets/thumbnail.png",
+    "48": "assets/thumbnail.png",
+    "128": "assets/thumbnail.png"
+  },
+  "background": {
+    "scripts": [
+      "scripts/jquery-3.3.1.min.js",
+      "scripts/semantic-2.4.1.min.js",
+      "scripts/background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "https://github.com/*",
+    "https://api.github.com/*",
+    "https://practice.geeksforgeeks.org/*",
+    "https://school.programmers.co.kr/",
+    "tabs",
+    "unlimitedStorage",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://school.programmers.co.kr/*", "https://github.com/*"],
+      "css": ["css/programmers/inject.css"],
+      "js": [
+        "scripts/authorize.js",
+        "library/sha1.min.js",
+        "scripts/util.js",
+        "scripts/Github.js",
+        "scripts/storage.js",
+        "scripts/enable.js",
+        "scripts/programmers/variables.js",
+        "scripts/programmers/util.js",
+        "scripts/programmers/parsing.js",
+        "scripts/programmers/uploadfunctions.js",
+        "scripts/programmers/programmers.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": "script-src 'self' https://code.jquery.com/jquery-3.3.1.min.js https://github.com/login/oauth/authorize https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js; object-src 'self'"
+}
